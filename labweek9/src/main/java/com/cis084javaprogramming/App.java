@@ -3,7 +3,7 @@ package com.cis084javaprogramming;
 import java.io.*;
 import java.util.*;
 import javax.sound.sampled.*;
-import javax.sound.sampled.AudioSystem;
+
 import org.json.simple.*;
 import org.json.simple.parser.*;
 
@@ -54,6 +54,8 @@ public class App {
             System.out.printf("[%d] %s\n", i + 1, name);
         }
 
+        System.out.println("[P]ause");
+        System.out.println("[R]ewind");
         System.out.println("[Q]uit");
 
         System.out.println("");
@@ -75,13 +77,25 @@ public class App {
             if (number < library.size()) {
                 play(library, number);
             }
+
+            // if letter input, persue according option or detect invalid input
         } catch (Exception e) {
             if (userInput.equals("q")) {
                 System.out.println("Thank you for using the app.");
+            } else if (userInput.equals("p")) {
+                pause();
+                System.out.println("The song is now paused.");
+            } else if (userInput.equals("r")) {
+                System.out.println("How far would you like to rewind (seconds)?");
+                Integer numberOfSeconds = Integer.parseInt(userInput);
             } else {
                 System.out.printf("Error: %s is not a command\n", userInput);
             }
         }
+    }
+
+    public static void pause() {
+        audioClip.stop();
     }
 
     // plays an audio file
