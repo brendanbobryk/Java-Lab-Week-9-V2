@@ -10,7 +10,7 @@ import org.json.simple.parser.*;
 // declares a class for the app
 public class App {
 
-    // prviate variables for the app
+    // private variables for the app
     private static Clip audioClip;
 
     // private static String basePath =
@@ -78,7 +78,7 @@ public class App {
                 play(library, number);
             }
 
-            // if letter input, persue according option or detect invalid input
+            // if letter input, pursue according option or detect invalid input
         } catch (Exception e) {
             if (userInput.equals("q")) {
                 System.out.println("Thank you for using the app.");
