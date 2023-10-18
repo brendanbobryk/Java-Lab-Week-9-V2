@@ -54,7 +54,7 @@ public class App {
             System.out.printf("[%d] %s\n", i + 1, name);
         }
 
-        System.out.println("[P]ause");
+        System.out.println("[P]ause / Resume");
         System.out.println("[R]ewind");
         System.out.println("[Q]uit");
 
@@ -83,8 +83,12 @@ public class App {
             if (userInput.equals("q")) {
                 System.out.println("Thank you for using the app.");
             } else if (userInput.equals("p")) {
-                pause();
-                System.out.println("The song is now paused.");
+                if (audioClip.isRunning()) {
+                    System.out.println("The song is now paused.");
+                } else {
+                    System.out.println("The song is now resuming.");
+                }
+                pauseOrResume();
             } else if (userInput.equals("r")) {
                 System.out.println("How far would you like to rewind (seconds)?");
                 Integer numberOfSeconds = Integer.parseInt(userInput);
@@ -94,8 +98,12 @@ public class App {
         }
     }
 
-    public static void pause() {
-        audioClip.stop();
+    public static void pauseOrResume() {
+        if (audioClip.isRunning()) {
+            audioClip.stop();
+        } else {
+            audioClip.start();
+        }
     }
 
     // plays an audio file
