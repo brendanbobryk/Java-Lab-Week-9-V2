@@ -99,19 +99,26 @@ public class App {
         }
     }
 
+    // rewinds an audio file
     public static void rewind(Long userRewindTime) {
+        // stops audio file and retrieves the microsecond position
         audioClip.stop();
+        // calculates the rewinded position in the audio file
         long time = audioClip.getMicrosecondPosition() - (userRewindTime * (long) Math.pow(10, 6));
-        System.out.println(audioClip.getMicrosecondPosition());
-        System.out.println(time);
+        // sets the position of the adjusted microsecond value and resumes playing from
+        // adjusted position
         audioClip.setMicrosecondPosition(time);
         audioClip.start();
     }
 
+    // pauses or resumes an audio file
     public static void pauseOrResume() {
+        // checks if audio file is running
         if (audioClip.isRunning()) {
+            // stops the audio file
             audioClip.stop();
         } else {
+            // resumes audio file from the stopped position
             audioClip.start();
         }
     }
