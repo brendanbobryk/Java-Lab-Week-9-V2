@@ -3,7 +3,7 @@ package com.cis084javaprogramming;
 import java.io.*;
 import java.util.*;
 import javax.sound.sampled.*;
-
+import java.lang.Math;
 import org.json.simple.*;
 import org.json.simple.parser.*;
 
@@ -37,7 +37,7 @@ public class App {
             userInput = userInput.toLowerCase();
 
             // do something
-            handleMenu(userInput, library);
+            handleMenu(userInput, library, input);
         }
 
         // close the scanner
@@ -65,7 +65,7 @@ public class App {
     /*
      * handles the user input for the app
      */
-    public static void handleMenu(String userInput, JSONArray library) {
+    public static void handleMenu(String userInput, JSONArray library, Scanner input) {
         // check if the input is a number, if not if it is q, then quit
         try {
             Integer number = Integer.parseInt(userInput);
@@ -91,11 +91,21 @@ public class App {
                 pauseOrResume();
             } else if (userInput.equals("r")) {
                 System.out.println("How far would you like to rewind (seconds)?");
-                Integer numberOfSeconds = Integer.parseInt(userInput);
+                long userRewindTime = input.nextLong();
+                rewind(userRewindTime);
             } else {
                 System.out.printf("Error: %s is not a command\n", userInput);
             }
         }
+    }
+
+    public static void rewind(Long userRewindTime) {
+        audioClip.stop();
+        long time = audioClip.getMicrosecondPosition() - (userRewindTime * (long) Math.pow(10, 6));
+        System.out.println(audioClip.getMicrosecondPosition());
+        System.out.println(time);
+        audioClip.setMicrosecondPosition(time);
+        audioClip.start();
     }
 
     public static void pauseOrResume() {
